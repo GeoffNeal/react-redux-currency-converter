@@ -1,4 +1,80 @@
+/*
+ * [0] Force landscape to take precedence if the width is
+ *     beyond the tablet portrait breakpoint. (I use these
+ *     sparingly I promise!).
+ * [1] On landscape phones we want the currency boxes to
+ *     display side by side, not on top of one another.
+ */
+
 .Converter {
   color: #fefaec;
-  width: 60%;
+  width: 80%;
+  margin-bottom: 1.6em;
+}
+
+.Converter__header {
+  font-size: 2rem;
+}
+
+.Converter__input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Converter__exchange-button {
+  max-width: 2em;
+  margin: 0 30px;
+}
+
+/* For phone only */
+@media only screen and (max-width: 599px) {
+  .Converter__header {
+    text-align: center;
+  }
+}
+
+/* For landscape phone only */
+@media only screen and (max-width: 899px) and (orientation: landscape) {
+  .Converter__header {
+    font-size: 2rem!important; /* [0] */
+  }
+
+  .Converter__input-container {
+    flex-direction: row; /* [1] */
+  }
+
+  .Converter__exchange-button {
+    max-width: 1.6em!important; /* [0] */
+  }
+}
+
+/* For tablet portrait up */
+@media only screen and (min-width: 600px) {
+  .Converter__header {
+    font-size: 3.2rem;
+  }
+
+  .Converter__exchange-button {
+    max-width: 3em;
+  }
+}
+
+/* For tablet landscape up */
+@media only screen and (min-width: 900px) {
+  .Converter__input-container {
+    flex-direction: row;
+  }
+}
+
+/* For desktop up */
+@media only screen and (min-width: 1200px) {
+  .Converter {
+    width: 80%;
+  }
+
+  .Converter__header {
+    font-size: 1.6em;
+  }
 }
