@@ -1,0 +1,81 @@
+.CurrencyBox {
+  width: 100%;
+  margin: 25px 0;
+}
+
+.CurrencyBox__rate {
+  display: block;
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.CurrencyBox__header {
+  background-color: #354660;
+  display: flex;
+  padding: 0 20px;
+}
+
+.CurrencyBox__header h4 {
+  margin: 10px 0;
+}
+
+.CurrencyBox__input {
+  background-color: #2f3951;
+  color: #fff;
+  width: 100%;
+  min-height: 35vh;
+  padding: 30px;
+  border: none;
+  font-size: 3.2rem;
+}
+
+/* For phone only */
+@media only screen and (max-width: 599px) {
+
+}
+
+/* For landscape phone only */
+@media only screen and (max-width: 899px) and (orientation: landscape) {
+  .CurrencyBox {
+    margin: 0;
+  }
+
+  .CurrencyBox__rate {
+    font-size: 0.7em;
+  }
+
+  .CurrencyBox__header h4 {
+    font-size: 0.6em;
+  }
+
+  .CurrencyBox__input {
+    min-height: 50vh;
+  }
+}
+
+/* For tablet portrait up */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* For tablet landscape up */
+@media only screen and (min-width: 900px) {
+  .CurrencyBox {
+    width: 45%;
+  }
+
+  .CurrencyBox__input {
+    min-height: 50vh;
+  }
+}
+
+/* For desktop up */
+@media only screen and (min-width: 1200px) {
+  .CurrencyBox__rate {
+    font-size: 0.7em;
+  }
+
+  .CurrencyBox__header h4 {
+    margin: 20px 0;
+  }
+}
