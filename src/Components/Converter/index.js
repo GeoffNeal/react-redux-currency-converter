@@ -1,23 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Converter.css';
+
+// Actions
+import { exchangeRate, currencyList } from '../../redux/actions';
 
 // Components
 import CurrencyBox from '../CurrencyBox';
+import CurrencyReverseButton from '../CurrencyReverseButton';
 
-// Assets
-import exchangeIcon from './exchange-arrows.svg';
+export class Converter extends Component {
+  componentDidMount() {
+    const { exchangeRate, currencyList, currency } = this.props;
+    exchangeRate({
+      from: currency.from,
+      to: currency.to
+    });
+    currencyList();
+  }
 
-const Converter = () => {
-  return (
-    <div className="Converter">
-      <h1 className="Converter__header">Currency Converter</h1>
-      <div className="Converter__input-container">
-        <CurrencyBox />
-        <img src={exchangeIcon} className="Converter__exchange-button" />
-        <CurrencyBox />
+  render() {
+    const { currency: { isReversed } } = this.props;
+    return (
+      <div className="Converter">
+        <h1 className="Converter__header">Currency Converter</h1>
+        <div className="Converter__input-container">
+          <CurrencyBox position={isReversed ? "from" : "to"} alternative={isReversed ? "to" : "from"} />
+          <CurrencyReverseButton />
+          <CurrencyBox position={isReversed ? "to" : "from"} alternative={isReversed ? "from" : "to"} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
-export default Converter;
+const mapStateToProps = ({ currency }) => ({ currency });
+
+const mapDispatchToProps = { exchangeRate, currencyList };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Converter);

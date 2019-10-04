@@ -23,11 +23,6 @@
   align-items: center;
 }
 
-.Converter__exchange-button {
-  max-width: 2em;
-  margin: 0 30px;
-}
-
 /* For phone only */
 @media only screen and (max-width: 599px) {
   .Converter__header {
@@ -44,20 +39,12 @@
   .Converter__input-container {
     flex-direction: row; /* [1] */
   }
-
-  .Converter__exchange-button {
-    max-width: 1.6em!important; /* [0] */
-  }
 }
 
 /* For tablet portrait up */
 @media only screen and (min-width: 600px) {
   .Converter__header {
     font-size: 3.2rem;
-  }
-
-  .Converter__exchange-button {
-    max-width: 3em;
   }
 }
 
