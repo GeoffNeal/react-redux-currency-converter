@@ -4,7 +4,7 @@ import './App.css';
 // Components
 import Converter from './Components/Converter';
 
-function App() {
+export function App() {
   return (
     <div className="App">
       <Converter />

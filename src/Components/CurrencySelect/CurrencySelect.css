@@ -1,0 +1,49 @@
+.CurrencySelect__header {
+  background-color: #354660;
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+.CurrencySelect__header h4 {
+  margin: 10px 0;
+}
+
+.CurrencySelect__arrow {
+  max-width: 1em;
+}
+
+.CurrencySelect__menu {
+  background-color: #64678c;
+  width: 100%;
+  max-height: 35vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: none;
+  position: absolute;
+}
+
+.CurrencySelect__menu--open {
+  display: block;
+}
+
+/* For landscape phone only */
+@media only screen and (max-width: 899px) and (orientation: landscape) {
+  .CurrencySelect__header h4 {
+    font-size: 0.6em;
+  }
+}
+
+/* For desktop up */
+@media only screen and (min-width: 1200px) {
+  .CurrencySelect__header h4 {
+    margin: 20px 0;
+  }
+
+  .CurrencySelect__menu {
+    max-height: 50vh;
+  }
+}
