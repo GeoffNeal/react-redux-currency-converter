@@ -20,11 +20,12 @@ export const CurrencySelect = ({ currency, position, alternative, openCurrencyMe
     <>
       <div className="CurrencySelect__header" onClick={() => openCurrencyMenu(position)}>
         <h4>{currency[position]}</h4>
-        <img className="CurrencySelect__arrow" src={downArrow} />
+        <img className="CurrencySelect__arrow" src={downArrow} alt="Toggle currency menu" />
       </div>
       <ul className={menuClasses}>
-        {currency.types.list.map(currencyType => (
+        {currency.types.list.map((currencyType, i) => (
           <CurrencyItem
+            key={`${currencyType}_${i}`}
             position={position}
             alternative={alternative}
             currencyType={currencyType}

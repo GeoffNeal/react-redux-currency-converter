@@ -10,7 +10,7 @@ import exchangeIcon from './exchange-arrows.svg';
 
 export const CurrencyReverseButton = ({ reverseCurrency }) => (
   <button onClick={reverseCurrency} className="CurrencyReverseButton">
-    <img src={exchangeIcon} />
+    <img src={exchangeIcon} alt="Reverse currency" />
   </button>
 );
 
