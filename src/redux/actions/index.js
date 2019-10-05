@@ -3,11 +3,81 @@ import * as api from '../../api';
 
 import store from '../store';
 
+/* ---------------------- Currency actions ---------------------- */
+
 export function reverseCurrency() {
   return {
     type: types.CURRENCY_REVERSE
   };
 }
+
+export function openCurrencyMenu(position) {
+  return {
+    type: types.OPEN_CURRENCY_MENU,
+    position
+  };
+}
+
+export function updateCurrency(currency, position) {
+  return {
+    type: types.CURRENCY_UPDATE,
+    position,
+    currency
+  };
+}
+
+export function requestCurrencyList() {
+  return {
+    type: types.CURRENCY_LIST_REQUEST,
+  };
+}
+
+export function receiveCurrencyList(currencyTypes) {
+  return {
+    type: types.CURRENCY_LIST_SUCCESS,
+    currencyTypes
+  };
+}
+
+export function currencyListFailure(error) {
+  return {
+    type: types.CURRENCY_LIST_FAILURE,
+    error
+  };
+}
+
+// Async ------------------------------------
+
+export function currencyList() {
+  return dispatch => {
+    dispatch(requestCurrencyList())
+    return api.fetchCurrencyTypes()
+      .then(currencyTypes => dispatch(receiveCurrencyList(currencyTypes)))
+      .catch(error => {
+        console.log('ERROR: ', error);
+        dispatch(currencyListFailure(error))
+      });
+  }
+}
+
+export function currencyChange(currency, position, alternative) {
+  return dispatch => {
+    dispatch(updateCurrency(currency, position));
+    const curencyState = store.getState().currency;
+    const newCurrencies = {
+      [position]: curencyState[position],
+      [alternative]: curencyState[alternative]
+    };
+    return dispatch(exchangeRate({
+      from: newCurrencies.from,
+      to: newCurrencies.to,
+      position,
+      alternative
+    }));
+  };
+}
+
+/* ---------------------- Exchange rate actions ---------------------- */
 
 export function requestExchangeRate() {
   return {
@@ -28,6 +98,8 @@ export function exchangeRateFailure(error) {
     error
   };
 }
+
+// Async ------------------------------------
 
 export function exchangeRate(data) {
   return dispatch => {
@@ -54,37 +126,7 @@ export function exchangeRate(data) {
   }
 }
 
-export function requestCurrencyList() {
-  return {
-    type: types.CURRENCY_LIST_REQUEST,
-  };
-}
-
-export function receiveCurrencyList(currencyTypes) {
-  return {
-    type: types.CURRENCY_LIST_SUCCESS,
-    currencyTypes
-  };
-}
-
-export function currencyListFailure(error) {
-  return {
-    type: types.CURRENCY_LIST_FAILURE,
-    error
-  };
-}
-
-export function currencyList() {
-  return dispatch => {
-    dispatch(requestCurrencyList())
-    return api.fetchCurrencyTypes()
-      .then(currencyTypes => dispatch(receiveCurrencyList(currencyTypes)))
-      .catch(error => {
-        console.log('ERROR: ', error);
-        dispatch(currencyListFailure(error))
-      });
-  }
-}
+/* ---------------------- Value actions ---------------------- */
 
 export function valueChange(position, alternative, value) {
   return {
@@ -93,37 +135,5 @@ export function valueChange(position, alternative, value) {
     alternative,
     value,
     exchangeRate: store.getState().exchangeRate
-  };
-}
-
-export function openCurrencyMenu(position) {
-  return {
-    type: types.OPEN_CURRENCY_MENU,
-    position
-  };
-}
-
-export function updateCurrency(currency, position) {
-  return {
-    type: types.CURRENCY_UPDATE,
-    position,
-    currency
-  };
-}
-
-export function currencyChange(currency, position, alternative) {
-  return dispatch => {
-    dispatch(updateCurrency(currency, position));
-    const curencyState = store.getState().currency;
-    const newCurrencies = {
-      [position]: curencyState[position],
-      [alternative]: curencyState[alternative]
-    };
-    return dispatch(exchangeRate({
-      from: newCurrencies.from,
-      to: newCurrencies.to,
-      position,
-      alternative
-    }));
   };
 }
