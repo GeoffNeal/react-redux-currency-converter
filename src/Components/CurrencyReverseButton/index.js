@@ -1,4 +1,5 @@
 import React from 'react';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import './CurrencyReverseButton.css';
 
@@ -10,9 +11,13 @@ import exchangeIcon from './exchange-arrows.svg';
 
 export const CurrencyReverseButton = ({ reverseCurrency }) => (
   <button onClick={reverseCurrency} className="CurrencyReverseButton">
-    <img src={exchangeIcon} />
+    <img src={exchangeIcon} alt="Reverse currency" />
   </button>
 );
+
+CurrencyReverseButton.propTypes = {
+  reverseCurrency: func.isRequired
+};
 
 const mapDispatchToProps = { reverseCurrency };
 

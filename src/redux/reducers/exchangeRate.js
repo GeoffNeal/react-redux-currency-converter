@@ -9,7 +9,6 @@ const defaultState = {
 export const exchangeRate = (state = defaultState, action) => {
   switch (action.type) {
     case types.EXCHANGE_RATE_REQUEST:
-      console.log('EXCHANGE_RATE_REQUEST');
       return {
         ...state,
         isFetching: true
