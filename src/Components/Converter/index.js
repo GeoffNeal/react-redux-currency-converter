@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { string, bool, func, shape } from 'prop-types';
 import { connect } from 'react-redux';
 import './Converter.css';
 
@@ -32,6 +33,16 @@ export class Converter extends Component {
       </div>
     );
   }
+};
+
+Converter.propTypes = {
+  currency: shape({
+    from: string.isRequired,
+    to: string.isRequired,
+    isReversed: bool.isRequired
+  }).isRequired,
+  exchangeRate: func.isRequired,
+  currencyList: func.isRequired
 };
 
 const mapStateToProps = ({ currency }) => ({ currency });

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { string, number, shape } from 'prop-types';
 import { connect } from 'react-redux';
 import './CurrencyBox.css';
 
@@ -21,7 +22,7 @@ export class CurrencyBox extends Component {
   }
 
   render() {
-    const { currency, exchangeRate, position, alternative } = this.props;
+    const { currency, values, exchangeRate, position, alternative } = this.props;
     return (
       <div className="CurrencyBox">
         { !exchangeRate.error ? (
@@ -38,7 +39,7 @@ export class CurrencyBox extends Component {
           name={position}
           type="number"
           className="CurrencyBox__input"
-          value={currency.values[position]}
+          value={values[position]}
           onChange={this.handleChange}
         />
       </div>
@@ -46,9 +47,25 @@ export class CurrencyBox extends Component {
   }
 };
 
+CurrencyBox.propTypes = {
+  currency: shape({
+    from : string.isRequired,
+    to: string.isRequired
+  }).isRequired,
+  values: shape({
+    from: string.isRequired,
+    to: string.isRequired
+  }).isRequired,
+  exchangeRate: shape({
+    from: number.isRequired,
+    to: number.isRequired
+  }).isRequired
+};
+
 const mapStateToProps = state => {
   return {
     currency: state.currency,
+    values: state.currency.values,
     exchangeRate: state.exchangeRate
   }
 };

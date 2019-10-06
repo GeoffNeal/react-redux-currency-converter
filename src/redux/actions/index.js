@@ -11,9 +11,16 @@ export function reverseCurrency() {
   };
 }
 
-export function openCurrencyMenu(position) {
+export function toggleCurrencyMenu(position) {
   return {
-    type: types.OPEN_CURRENCY_MENU,
+    type: types.TOGGLE_CURRENCY_MENU,
+    position
+  };
+}
+
+export function closeCurrencyMenu(position) {
+  return {
+    type: types.CLOSE_CURRENCY_MENU,
     position
   };
 }

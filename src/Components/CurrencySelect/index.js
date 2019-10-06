@@ -1,47 +1,43 @@
 import React from 'react';
+import { string, func, shape } from 'prop-types';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import './CurrencySelect.css';
 
 // Actions
-import { openCurrencyMenu } from '../../redux/actions';
+import { toggleCurrencyMenu } from '../../redux/actions';
 
 // Assets
 import downArrow from './arrow-down.svg';
 
 // Components
-import CurrencyItem from '../CurrencyItem';
+import CurrencyList from '../CurrencyList';
 
-export const CurrencySelect = ({ currency, position, alternative, openCurrencyMenu }) => {
-  const menuClasses = classnames("CurrencySelect__menu", {
-    "CurrencySelect__menu--open": currency.menuOpen[position]
-  });
+export const CurrencySelect = ({ currency, position, alternative, toggleCurrencyMenu }) => {
   return (
     <>
-      <div className="CurrencySelect__header" onClick={() => openCurrencyMenu(position)}>
+      <div className="CurrencySelect__header" onClick={() => toggleCurrencyMenu(position)}>
         <h4>{currency[position]}</h4>
         <img className="CurrencySelect__arrow" src={downArrow} alt="Toggle currency menu" />
       </div>
-      <ul className={menuClasses}>
-        {currency.types.list.map((currencyType, i) => (
-          <CurrencyItem
-            key={`${currencyType}_${i}`}
-            position={position}
-            alternative={alternative}
-            currencyType={currencyType}
-          />
-        ))}
-      </ul>
+      <CurrencyList position={position} alternative={alternative} />
     </>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    currency: state.currency
-  };
+CurrencySelect.propTypes = {
+  currency: shape({
+    from: string.isRequired,
+    to: string.isRequired,
+  }).isRequired,
+  position: string.isRequired,
+  alternative: string.isRequired,
+  toggleCurrencyMenu: func.isRequired
 };
 
-const mapDispatchToProps = { openCurrencyMenu };
+const mapStateToProps = state => ({
+  currency: state.currency
+});
+
+const mapDispatchToProps = { toggleCurrencyMenu };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencySelect);
