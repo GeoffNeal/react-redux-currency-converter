@@ -1,5 +1,7 @@
 import * as types from '../constants';
 
+const formatValue = value => parseFloat(value).toString();
+
 const defaultState = {
   from: 'USD',
   to: 'GBP',
@@ -21,12 +23,20 @@ const defaultState = {
 
 export const currency = (state = defaultState, action) => {
   switch (action.type) {
-    case types.OPEN_CURRENCY_MENU:
+    case types.TOGGLE_CURRENCY_MENU:
       return {
         ...state,
         menuOpen: {
           ...state.menuOpen,
           [action.position]: !state.menuOpen[action.position]
+        }
+      };
+    case types.CLOSE_CURRENCY_MENU:
+      return {
+        ...state,
+        menuOpen: {
+          ...state.menuOpen,
+          [action.position]: false
         }
       };
     case types.CURRENCY_UPDATE:
@@ -44,8 +54,8 @@ export const currency = (state = defaultState, action) => {
         ...state,
         values: {
           ...state.values,
-          [action.position]: action.value,
-          [action.alternative]: action.value * action.exchangeRate[action.position]
+          [action.position]: formatValue(action.value),
+          [action.alternative]: formatValue((action.value * action.exchangeRate[action.position]))
         }
       }
     case types.CURRENCY_LIST_REQUEST:
